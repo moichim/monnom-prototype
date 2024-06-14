@@ -1,7 +1,9 @@
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { IRefPhaserGame, PhaserGame } from './game/PhaserGame';
 import { MainMenu } from './game/scenes/MainMenu';
 import { BricksGame } from './game/scenes/Game';
+import { CompositionSnapshotType } from './game/objects/CompositionManager';
+import { EventBus, GameEvents } from './game/EventBus';
 
 function App()
 {
@@ -11,6 +13,23 @@ function App()
     //  References to the PhaserGame component (game and scene are exposed)
     const phaserRef = useRef<IRefPhaserGame | null>(null);
     const [spritePosition, setSpritePosition] = useState({ x: 0, y: 0 });
+
+    // Stored compositions aray
+    const [ compositions, setCompositions ] = useState< CompositionSnapshotType[] >([]);
+
+
+    // Mirror stored compositions to local state
+    useEffect( () => {
+
+        EventBus.on(GameEvents.COMP_STORED, ( composition: CompositionSnapshotType ) => {
+            setCompositions( [...compositions, composition] );
+        });
+
+        return () => {
+            EventBus.removeListener( GameEvents.COMP_STORED );
+        }
+
+    }, [compositions, setCompositions] );
 
     const fall = () => {
         if ( phaserRef.current ) {
@@ -27,17 +46,21 @@ function App()
             const scene = phaserRef.current.scene as BricksGame;
 
             if ( scene ) {
-                scene.storeComposition();
+                scene.compositions.storeCurrentComposition( "Něco tady je" );
             }
         }
     }
 
-    const restore = () => {
+    const restore = ( composition: CompositionSnapshotType ) => {
         if ( phaserRef.current ) {
             const scene = phaserRef.current.scene as BricksGame;
 
             if ( scene ) {
-                scene.restoreComposition();
+                // scene.restoreComposition();
+
+                scene.compositions.restoreSnapshot( composition.id );
+
+                console.log( "Restoruji kompozici" );
             }
         }
     }
@@ -60,10 +83,8 @@ function App()
                 <div>
                     <button className="button" onClick={store}>Store</button>
                 </div>
-                
-                <div>
-                    <button className="button" onClick={restore}>Restore</button>
-                </div>
+
+                {compositions.map( composition => <button key={composition.id} onClick={() => restore( composition )} >{composition.id}</button> )}
             </div>
         </div>
     )

@@ -1,11 +1,16 @@
 import { EventBus } from "../EventBus";
 import { Scene } from "phaser";
 import { Brick } from "../objects/Brick";
+import { BrickManager } from "../objects/BrickManager";
+import { CompositionManager } from "../objects/CompositionManager";
 
 export class BricksGame extends Scene {
   camera!: Phaser.Cameras.Scene2D.Camera;
   blockTexture!: Phaser.GameObjects.Image;
   gameText!: Phaser.GameObjects.Text;
+
+  bricks = new BrickManager( this );
+  compositions = new CompositionManager( this );
 
   constructor() {
     super("Game");
@@ -14,6 +19,7 @@ export class BricksGame extends Scene {
   preload() {
     this.load.image("block", "assets/sbornik.png");
     this.load.image("mushroom", "assets/sbornik.png");
+    this.compositions.init();
   }
 
   create() {
@@ -42,7 +48,6 @@ export class BricksGame extends Scene {
     this.addBrick(600, 400);
     this.addBrick(700, 400);
     this.addBrick(800, 400);
-
     this.addBrick(100, 500);
     this.addBrick(200, 500);
     this.addBrick(300, 500);
@@ -51,8 +56,6 @@ export class BricksGame extends Scene {
     this.addBrick(600, 500);
     this.addBrick(700, 500);
     this.addBrick(800, 500);
-
-
     this.addBrick(100, 800);
     this.addBrick(200, 800);
     this.addBrick(300, 800);
@@ -75,54 +78,18 @@ export class BricksGame extends Scene {
     EventBus.emit("current-scene-ready", this);
   }
 
-  protected bricks: Brick[] = [];
 
-  protected addBrick(x: number, y: number): Brick {
-    const brick = this.add.existing(
-      new Brick(this.matter.world, x, y, "block")
-    );
-
-    this.bricks.push(brick);
-
-    return brick;
+  addBrick( x: number, y: number ) {
+    this.bricks.add( `brick-${x}-${y}`,x,y );
   }
 
   fall() {
-    this.bricks.forEach((brick) => brick.fall());
+    this.bricks.all.forEach((brick) => brick.fall());
   }
 
   changeScene() {
     this.scene.start("GameOver");
   }
 
-  protected storedComposition: Map<
-    number,
-    {
-      x: number;
-      y: number;
-      rotation: number;
-    }
-  > = new Map();
 
-  storeComposition() {
-    this.storedComposition.clear();
-    this.bricks.forEach((brick, index) => {
-      if (brick.inComposition === true) {
-        this.storedComposition.set(index, {
-          x: brick.x,
-          y: brick.y,
-          rotation: brick.rotation,
-        });
-      }
-    });
-
-  }
-
-  restoreComposition() {
-    this.fall();
-    this.storedComposition.forEach((state, order) => {
-
-      this.bricks[order].restorePosition(state.x, state.y, state.rotation);
-    });
-  }
 }

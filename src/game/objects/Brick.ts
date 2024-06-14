@@ -39,6 +39,7 @@ export class Brick extends Phaser.Physics.Matter.Image {
   }
 
   constructor(
+    name: string,
     world: Phaser.Physics.Matter.World,
     x: number,
     y: number,
@@ -47,6 +48,8 @@ export class Brick extends Phaser.Physics.Matter.Image {
     options: Phaser.Types.Physics.Matter.MatterBodyConfig = {}
   ) {
     super(world, x, y, texture, frame, { ...options, chamfer: 16 });
+
+    this.name = name;
 
     this.on(
       Phaser.Input.Events.POINTER_DOWN,
@@ -153,4 +156,12 @@ export class Brick extends Phaser.Physics.Matter.Image {
 
     }
   }
+
+  getStoreData() {
+    return this.toJSON()
+  }
+
+
+
+
 }
