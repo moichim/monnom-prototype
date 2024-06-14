@@ -43,7 +43,7 @@ export class NaturalMovement extends AbstractMovement {
             }
       
             if (this.targetRotation !== undefined) {
-              const angleDelta = this.targetRotation - this.targetRotation;
+              const angleDelta = this.targetRotation - this.brick.rotation;
       
               if (Math.abs(angleDelta) > 0.1) {
                 const aspect = angleDelta > 1 ? 0.1 : angleDelta > 0.5 ? 0.05 : 0.01;

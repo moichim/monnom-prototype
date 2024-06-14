@@ -3,6 +3,25 @@ import { AbstractMovement } from "./AbstractMovement";
 export class TweenMovement extends AbstractMovement {
 
     protected onStart(): void {
+
+      console.log( this );
+
+      // this.brick.setIgnoreGravity( true );
+      // this.brick.setCollidesWith( 99 )
+
+      const tween = this.brick.scene.tweens.add({
+        targets: this.brick,
+        x: this.targetPosition.x,
+        y: this.targetPosition.y,
+        rotation: this.targetRotation,
+        ease: "linear",
+        repeat: 0,
+        duration: 1000,
+        // onUpdate: console.log,
+        onComplete: this.end.bind( this )
+      });
+
+      tween.play();
         
     }
 
@@ -11,50 +30,11 @@ export class TweenMovement extends AbstractMovement {
     }
 
     protected onEnd(): void {
-        
+        console.log( "skončil jsem" );
+        this.movement.atPlace();
     }
 
     protected onUpdate(): void {
-
-
-        if (this.targetPosition !== undefined || this.targetRotation !== undefined) {
-
-            // Update movement towards target location
-            if (this.targetPosition) {
-              const currentPosition = this.brick.getCenter();
-      
-              const direction = this.targetPosition
-                .clone()
-                .subtract(currentPosition)
-                .normalize();
-      
-              const distance = this.targetPosition.distance(currentPosition);
-      
-              const diagonal =
-                (this.brick.scene.game.canvas.width + this.brick.scene.game.canvas.height) / 2;
-      
-              const speed = (distance / diagonal) * 100;
-      
-              if (distance > 3) {
-                this.brick.setVelocity(direction.x * speed, direction.y * speed);
-              } else {
-                this.isAtPosition = true;
-              }
-            }
-      
-            if (this.targetRotation !== undefined) {
-              const angleDelta = this.targetRotation - this.targetRotation;
-      
-              if (Math.abs(angleDelta) > 0.1) {
-                const aspect = angleDelta > 1 ? 0.1 : angleDelta > 0.5 ? 0.05 : 0.01;
-      
-                this.brick.setAngularVelocity(angleDelta * aspect);
-              } else {
-                this.isAtRotation = true;
-              }
-            }
-      
-          }
 
     }
 
