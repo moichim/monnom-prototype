@@ -1,6 +1,6 @@
 import { EventBus, GameEvents } from "../EventBus";
 import { BricksGame } from "../scenes/Game";
-import { Brick } from "./Brick";
+import { Brick, BrickMovements } from "./Brick";
 
 import { v4 as uuid } from "uuid";
 
@@ -29,8 +29,6 @@ export class CompositionManager {
     ) {
 
         const bricks = this.bricks.currentlyInComposition;
-
-        console.log( name, bricks, this );
 
         if ( bricks.length === 0 ) {
             console.error( "There are no bricks in composition right now!" );
@@ -120,7 +118,7 @@ export class CompositionManager {
     }
 
 
-    public restoreSnapshot( id: string ) {
+    public restoreSnapshot( id: string, mode: BrickMovements ) {
 
         // Do nothing if snapshot does not exist
         const snapshot = this.store.get( id );
@@ -139,7 +137,12 @@ export class CompositionManager {
             if ( brick ) {
 
                 const newPosition = this.dimensions.center.clone().add( brickState.position );
-                brick.restorePosition( newPosition.x, newPosition.y, brickState.rotation );
+
+                if (mode === BrickMovements.NATURAL ) {
+                    brick.movement.natural( newPosition.x, newPosition.y, brickState.rotation );
+                } else {
+                    brick.movement.tween( newPosition.x, newPosition.y, brickState.rotation )
+                }
 
             }
 
