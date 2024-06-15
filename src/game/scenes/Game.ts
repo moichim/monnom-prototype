@@ -1,6 +1,5 @@
-import { EventBus } from "../EventBus";
 import { Scene } from "phaser";
-import { Brick } from "../objects/Brick";
+import { EventBus } from "../EventBus";
 import { BrickManager } from "../objects/BrickManager";
 import { CompositionManager } from "../objects/CompositionManager";
 
@@ -25,7 +24,7 @@ export class BricksGame extends Scene {
   create() {
     this.matter.world.setBounds();
 
-    const canDrag = this.matter.world.nextGroup();
+    // const canDrag = this.matter.world.nextGroup();
 
     this.addBrick(100, 20);
     this.addBrick(200, 20);
@@ -67,7 +66,7 @@ export class BricksGame extends Scene {
 
     // const rebrick = this.matter.add.gameObject( brick );
 
-    const constraint = this.matter.add.mouseSpring({
+    this.matter.add.mouseSpring({
       length: 1,
       stiffness: 0.1,
       // collisionFilter: {

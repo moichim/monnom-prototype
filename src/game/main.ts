@@ -6,7 +6,7 @@ import { BricksGame as MainGame } from "./scenes/Game";
 const config: Phaser.Types.Core.GameConfig = {
   type: AUTO,
   width: 1024,
-  height: 1024,
+  height: 900,
   parent: "game-container",
   backgroundColor: "#028af8",
   physics: {

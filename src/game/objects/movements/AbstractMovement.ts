@@ -1,4 +1,3 @@
-import { Brick } from "../Brick";
 import { MovementManager } from "./MovementManager";
 
 export abstract class AbstractMovement {

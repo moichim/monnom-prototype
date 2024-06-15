@@ -1,10 +1,9 @@
-import { useCallback, useEffect, useRef, useState } from "react";
-import { IRefPhaserGame, PhaserGame } from "./game/PhaserGame";
-import { MainMenu } from "./game/scenes/MainMenu";
-import { BricksGame } from "./game/scenes/Game";
-import { CompositionSnapshotType } from "./game/objects/CompositionManager";
+import { useEffect, useRef, useState } from "react";
 import { EventBus, GameEvents } from "./game/EventBus";
-import { Brick, BrickMovements } from "./game/objects/Brick";
+import { IRefPhaserGame, PhaserGame } from "./game/PhaserGame";
+import { BrickMovements } from "./game/objects/Brick";
+import { CompositionSnapshotType } from "./game/objects/CompositionManager";
+import { BricksGame } from "./game/scenes/Game";
 
 function App() {
   const [movement, setMovement] = useState<BrickMovements>(
@@ -12,11 +11,10 @@ function App() {
   );
 
   // The sprite can only be moved in the MainMenu Scene
-  const [canMoveSprite, setCanMoveSprite] = useState(true);
+  const [, setCanMoveSprite] = useState(true);
 
   //  References to the PhaserGame component (game and scene are exposed)
   const phaserRef = useRef<IRefPhaserGame | null>(null);
-  const [spritePosition, setSpritePosition] = useState({ x: 0, y: 0 });
 
   // Stored compositions aray
   const [compositions, setCompositions] = useState<CompositionSnapshotType[]>(
@@ -78,34 +76,44 @@ function App() {
 
   return (
     <div id="app">
-      <PhaserGame ref={phaserRef} currentActiveScene={currentScene} />
-
-      <div>Movement mode: {movement}</div>
-
-        <select value={movement} onChange={(event) => {
-            setMovement( event.target.value as BrickMovements );
-        }}>
-            {Object.values(BrickMovements).map( mode => <option key={mode} value={mode}>{mode}</option> )}
-        </select>
-
-      <div>
+      <div style={{ display: "flex" }}>
+        <PhaserGame ref={phaserRef} currentActiveScene={currentScene} />
         <div>
-          <button className="button" onClick={fall}>
-            Fall
-          </button>
-        </div>
+          <div>Movement mode: {movement}</div>
 
-        <div>
-          <button className="button" onClick={store}>
-            Store
-          </button>
-        </div>
+          <select
+            value={movement}
+            onChange={(event) => {
+              setMovement(event.target.value as BrickMovements);
+            }}
+          >
+            {Object.values(BrickMovements).map((mode) => (
+              <option key={mode} value={mode}>
+                {mode}
+              </option>
+            ))}
+          </select>
 
-        {compositions.map((composition) => (
-          <button key={composition.id} onClick={() => restore(composition)}>
-            {composition.id}
-          </button>
-        ))}
+          <div>
+            <div>
+              <button className="button" onClick={fall}>
+                Fall
+              </button>
+            </div>
+
+            <div>
+              <button className="button" onClick={store}>
+                Store
+              </button>
+            </div>
+
+            {compositions.map((composition) => (
+              <button key={composition.id} onClick={() => restore(composition)}>
+                {composition.id}
+              </button>
+            ))}
+          </div>
+        </div>
       </div>
     </div>
   );

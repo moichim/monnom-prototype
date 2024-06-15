@@ -74,11 +74,14 @@ export class MovementManager {
     }
 
     public startDragging() {
-        // this.brick.inComposition = true;
+        this.brick.inComposition = false;
+        this.brick.setStatic( false );
         this.brick.setIgnoreGravity( true );
     }
 
     public endDragging() {
+
+        this.brick.inComposition = true;
 
         if ( this.brick.inComposition ) {
             this.brick.setAngularSpeed(0)
