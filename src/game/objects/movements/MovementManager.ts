@@ -1,6 +1,7 @@
 import { Brick } from "../Brick";
 import { AbstractMovement } from "./AbstractMovement";
 import { NaturalMovement } from "./NaturalMovement";
+import { SwapMovement } from "./SwapMovement";
 import { TweenMovement } from "./TweenMovement";
 
 export class MovementManager {
@@ -31,6 +32,10 @@ export class MovementManager {
 
     tween( x: number, y: number, rotation: number ) {
         this.add( new TweenMovement( this, new Phaser.Math.Vector2( x, y ), rotation ) );
+    }
+
+    swap( x: number, y: number, rotation: number ) {
+        this.add( new SwapMovement( this, new Phaser.Math.Vector2( x, y ), rotation ) );
     }
 
     public stop() {

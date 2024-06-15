@@ -1,6 +1,6 @@
 import { AbstractMovement } from "./AbstractMovement";
 
-export class TweenMovement extends AbstractMovement {
+export class SwapMovement extends AbstractMovement {
 
     protected onStart(): void {
 

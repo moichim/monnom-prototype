@@ -53,6 +53,7 @@ export class CompositionManager {
             return {
                 position: this.getPositionRelativeToCenter( brick ),
                 rotation: brick.rotation,
+                angle: brick.angle,
                 name: brick.name
             }
 
@@ -139,9 +140,11 @@ export class CompositionManager {
                 const newPosition = this.dimensions.center.clone().add( brickState.position );
 
                 if (mode === BrickMovements.NATURAL ) {
-                    brick.movement.natural( newPosition.x, newPosition.y, brickState.rotation );
-                } else {
-                    brick.movement.tween( newPosition.x, newPosition.y, brickState.rotation )
+                    brick.movement.natural( newPosition.x, newPosition.y, brickState.angle );
+                } else if ( mode === BrickMovements.JUMP ) {
+                    brick.movement.tween( newPosition.x, newPosition.y, brickState.angle )
+                } else if ( mode === BrickMovements.SWAP ) {
+                    brick.movement.swap( newPosition.x, newPosition.y, brickState.angle );
                 }
 
             }

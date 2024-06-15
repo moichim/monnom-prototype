@@ -2,7 +2,8 @@ import { MovementManager } from "./movements/MovementManager";
 
 export enum BrickMovements {
     NATURAL = "Natural",
-    JUMP = "Jump"
+    JUMP = "Jump",
+    SWAP = "Swap"
 }
 
 export class Brick extends Phaser.Physics.Matter.Image {
