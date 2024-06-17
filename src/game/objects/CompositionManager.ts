@@ -151,9 +151,13 @@ export class CompositionManager {
 
                 if (mode === BrickMovements.NATURAL ) {
                     brick.movement.natural( newPosition.x, newPosition.y, brickState.angle );
-                } else if ( mode === BrickMovements.JUMP ) {
+                } 
+                
+                /*
+                else if ( mode === BrickMovements.JUMP ) {
                     brick.movement.tween( newPosition.x, newPosition.y, brickState.angle )
-                } else if ( mode === BrickMovements.SWAP ) {
+                }*/
+                 else if ( mode === BrickMovements.SWAP ) {
                     brick.movement.swap( newPosition.x, newPosition.y, brickState.angle );
                 }
 

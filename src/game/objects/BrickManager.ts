@@ -16,8 +16,6 @@ export class BrickManager {
         new Brick(name, this.scene.matter.world, x, y, textureKey)
       // );
 
-      // brick.setActive( false );
-
       this.array.push(brick);
       this.map.set(name, brick);
 

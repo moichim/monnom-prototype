@@ -5,7 +5,7 @@ import { Menu } from "./menu/Menu";
 import { IRefPhaserGame, PhaserGame } from "../game/PhaserGame";
 import { BricksGame } from "../game/scenes/Game";
 import { CompositionSnapshotType } from "../game/objects/CompositionManager";
-import { Button } from "@nextui-org/react";
+import { Button, ButtonGroup } from "@nextui-org/react";
 import { CompositionPopover } from "./state/CompositionsPopover";
 import { EventBus, GameEvents } from "../game/EventBus";
 
@@ -37,7 +37,6 @@ export const Controller: React.FC = () => {
     };
   }, [phaserRef, setScene]);
 
-  
   // Store the composition when ready
   useEffect(() => {
     EventBus.on(
@@ -54,54 +53,52 @@ export const Controller: React.FC = () => {
   }, [compositions, setCompositions]);
 
   const restore = (composition: CompositionSnapshotType) => {
-    console.log(scene);
     if (scene) {
       scene.compositions.restoreSnapshot(composition, movement);
     }
   };
 
   const fall = () => {
-    console.log(scene);
     if (scene) {
       scene.fall();
     }
   };
 
   const store = () => {
-    console.log(scene);
     if (scene) {
       scene.compositions.storeCurrentComposition("Some ID");
     }
   };
 
+  const shuffle = () => {
+    if (scene) {
+      scene.shuffle();
+    }
+  };
+
   return (
     <div className="inset-0 w-screen h-screen overflow-hidden">
-
-<PhaserGame ref={phaserRef} />
+      <PhaserGame ref={phaserRef} />
 
       <Menu
-        actionButtons={
-          <>
-            <Button className="bg-gray-300" onClick={store}>
-              Store
-            </Button>
-            <Button className="bg-gray-300" onClick={fall}>
-              Fall
-            </Button>
-            <Button className="bg-gray-300">Shuffle</Button>
-          </>
-        }
       >
-        <MovementRadio
-          value={movement}
-          onChange={(event) => {
-            setMovement(event.target.value as BrickMovements);
-          }}
-        />
+        <ButtonGroup variant="bordered" color="primary" className="bg-white">
+          <Button onClick={store}>Store</Button>
+          <Button onClick={fall}>Fall</Button>
+          <Button onClick={shuffle}>Shuffle</Button>
+          <CompositionPopover compositions={compositions} restore={restore} />
+        </ButtonGroup>
+        <div>
+          <MovementRadio
+            value={movement}
+            onChange={(event) => {
+              setMovement(event.target.value as BrickMovements);
+            }}
+          />
+        </div>
       </Menu>
 
-      <CompositionPopover compositions={compositions} restore={restore} />
-    
+      
     </div>
   );
 };

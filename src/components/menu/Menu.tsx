@@ -19,14 +19,13 @@ export const Menu: React.FC<MenuProps> = (props) => {
 
   return (
     <div className={"fixed right-3 top-3"}>
-      <ButtonGroup
+      <div
         // isIconOnly
-        variant="bordered"
-        color="primary"
+       //  variant="bordered"
+        // color="primary"
       >
-        {props.actionButtons}
-        <Button onClick={onOpen} className="bg-white">Menu</Button>
-      </ButtonGroup>
+        {props.children}
+      </div>
 
       <Modal
         isOpen={isOpen}

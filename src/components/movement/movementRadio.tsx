@@ -15,11 +15,10 @@ export const MovementRadio: React.FC<MovementRadioProps> = props => {
         label="Movement type"
         onChange={(event) => {
 
-            console.log( event.target.value );
-
             props.onChange( event ) }
         }
         value={props.value}
+        orientation="horizontal"
     >
         {Object.entries( BrickMovements ).map( ([key,label]) => {
 

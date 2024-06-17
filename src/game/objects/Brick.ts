@@ -4,7 +4,7 @@ import Phaser from "phaser";
 
 export enum BrickMovements {
     NATURAL = "Natural",
-    JUMP = "Jump",
+    // JUMP = "Jump",
     SWAP = "Swap"
 }
 

@@ -20,10 +20,10 @@ const baseConfig: Phaser.Types.Core.GameConfig = {
 
 const StartGame = (parent: string) => {
 
-  const bottomOffset = window.innerWidth - 900;
+  const bottomOffset = window.innerWidth - 1000;
 
   const height = bottomOffset < 0
-    ? window.innerHeight - ( bottomOffset * 1.2 )
+    ? window.innerHeight - ( bottomOffset * 1 )
     : window.innerHeight;
 
 

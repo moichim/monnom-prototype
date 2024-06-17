@@ -95,4 +95,7 @@ export class MovementManager {
         this.atPlace();
     }
 
+    public shuffle() {
+    }
+
 }

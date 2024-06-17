@@ -38,7 +38,7 @@ export const CompositionPopover: React.FC<CompositionPopoverProps> = (
 
 
   return (
-    <div className="fixed top-3 left-3">
+    <>
       {filtered.length > 0 && 
         <Popover
         color="foreground"
@@ -48,8 +48,8 @@ export const CompositionPopover: React.FC<CompositionPopoverProps> = (
         }}
       >
         <PopoverTrigger>
-          <Button variant="bordered" className="bg-white" color="primary">
-            Kompozice
+          <Button color="primary" variant="solid">
+            Compositions
           </Button>
         </PopoverTrigger>
         <PopoverContent>
@@ -71,7 +71,6 @@ export const CompositionPopover: React.FC<CompositionPopoverProps> = (
       </Popover>
       
       }
-      
-    </div>
+      </>
   );
 };
