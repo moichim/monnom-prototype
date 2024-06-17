@@ -72,9 +72,13 @@ export class MovementManager {
         this.brick.inComposition = true;
         this.brick.setIgnoreGravity( true );
         this.brick.setStatic( true );
+        this._movement = undefined;
     }
 
     public startDragging() {
+        this.brick.setInteractive();
+
+        console.log( "startDragging" );
         this.brick.inComposition = false;
         this.brick.setStatic( false );
         this.brick.setIgnoreGravity( true );
@@ -82,13 +86,13 @@ export class MovementManager {
 
     public endDragging() {
 
-        this.brick.inComposition = true;
+        // this.brick.inComposition = true;
 
-        if ( this.brick.inComposition ) {
+        // if ( this.brick.inComposition ) {
             this.brick.setAngularSpeed(0)
                 .setAngularVelocity(0)
                 .setVelocity(0);
-        }
+       //  }
         // this.brick.inComposition = true;
         // this.brick.setIgnoreGravity( true );
         // this.brick.setStatic( true );

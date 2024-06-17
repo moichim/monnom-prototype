@@ -55,6 +55,8 @@ export class Brick extends Phaser.Physics.Matter.Image {
 
         this.movement.startDragging();
         this.scene.game.canvas.style.cursor = "pointer";
+
+        console.log( this.movement );
     
       },
       this
@@ -85,20 +87,10 @@ export class Brick extends Phaser.Physics.Matter.Image {
   addedToScene(): void {
     super.addedToScene();
 
-    
-
     const rotation = Math.random() * 360;
     this.setRotation(rotation);
     this.setInteractive();
     this.setBounce( 0 );
-
-    this.world.on(
-      Phaser.Input.Events.UPDATE,
-      (event: Brick) => {
-        console.log(event);
-      },
-      this
-    );
   }
 
   fall() {
