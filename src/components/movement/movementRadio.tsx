@@ -13,12 +13,17 @@ export const MovementRadio: React.FC<MovementRadioProps> = props => {
 
     return <RadioGroup 
         label="Movement type"
-        onChange={props.onChange}
+        onChange={(event) => {
+
+            console.log( event.target.value );
+
+            props.onChange( event ) }
+        }
         value={props.value}
     >
         {Object.entries( BrickMovements ).map( ([key,label]) => {
 
-            return <Radio key={key} value={key} >{label}</Radio>
+            return <Radio key={key} value={label} >{label}</Radio>
 
         } )}
     </RadioGroup>

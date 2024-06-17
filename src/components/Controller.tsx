@@ -28,14 +28,14 @@ export const Controller: React.FC = () => {
   // Store the scene when ready
   useEffect(() => {
     EventBus.on("current-scene-ready", (scene_instance: Phaser.Scene) => {
-      console.log(scene_instance);
+      console.log("přišla scéna!", scene_instance);
       setScene(scene_instance as BricksGame);
     });
 
     return () => {
       EventBus.removeListener("current-scene-ready");
     };
-  }, [phaserRef]);
+  }, [phaserRef, setScene]);
 
   
   // Store the composition when ready
@@ -56,7 +56,7 @@ export const Controller: React.FC = () => {
   const restore = (composition: CompositionSnapshotType) => {
     console.log(scene);
     if (scene) {
-      scene.compositions.restoreSnapshot(composition.id, movement);
+      scene.compositions.restoreSnapshot(composition, movement);
     }
   };
 
@@ -75,7 +75,10 @@ export const Controller: React.FC = () => {
   };
 
   return (
-    <div className="inset-0 w-screen h-screen">
+    <div className="inset-0 w-screen h-screen overflow-hidden">
+
+<PhaserGame ref={phaserRef} />
+
       <Menu
         actionButtons={
           <>
@@ -98,7 +101,7 @@ export const Controller: React.FC = () => {
       </Menu>
 
       <CompositionPopover compositions={compositions} restore={restore} />
-      <PhaserGame ref={phaserRef} />
+    
     </div>
   );
 };

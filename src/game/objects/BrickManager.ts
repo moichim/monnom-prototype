@@ -10,10 +10,10 @@ export class BrickManager {
 
 
   /** Add a new brick if not exists yet */
-  public add(name: string, x: number, y: number): Brick | undefined {
+  public add(name: string, x: number, y: number, textureKey: string = "block"): Brick | undefined {
     if (!this.map.has(name)) {
       const brick = this.scene.add.existing(
-        new Brick(name, this.scene.matter.world, x, y, "block")
+        new Brick(name, this.scene.matter.world, x, y, textureKey)
       );
 
       this.array.push(brick);

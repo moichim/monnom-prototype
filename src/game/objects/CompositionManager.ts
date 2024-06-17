@@ -120,13 +120,9 @@ export class CompositionManager {
     }
 
 
-    public restoreSnapshot( id: string, mode: BrickMovements ) {
+    public restoreSnapshot( snapshot: CompositionSnapshotType, mode: BrickMovements ) {
 
         // Do nothing if snapshot does not exist
-        const snapshot = this.store.get( id );
-        if ( ! snapshot ) {
-            return;
-        }
 
         // All bricks should fall
         this.bricks.all.forEach( brick => brick.fall() );

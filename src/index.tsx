@@ -7,10 +7,11 @@ import { Site } from './components/Site';
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
-root.render(
+root.render(<>
   <React.StrictMode>
     <Site />
   </React.StrictMode>
+  </>
 );
 
 // If you want to start measuring performance in your app, pass a function
