@@ -1,5 +1,5 @@
 import { useMemo } from "react";
-import { CompositionSnapshotType } from "../game/objects/CompositionManager";
+import { CompositionSnapshotType } from "../../game/objects/CompositionManager";
 import { SceneStateBrick } from "./SceneStateBrick";
 
 type SceneStateProps = {
@@ -17,7 +17,7 @@ export const SceneState: React.FC<SceneStateProps> = ({
     const height = useMemo( () => snapshot.dimension.scene.height, [] );
 
 
-    return <button onClick={onClick} style={{width: 400}}>
+    return <button onClick={onClick} style={{width: 200, background: "white", display: "inine-block"}}>
 
         <svg
             // width={width}

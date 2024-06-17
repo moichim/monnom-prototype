@@ -1,5 +1,6 @@
 import { BricksGame } from "../scenes/Game";
 import { Brick } from "./Brick";
+import Phaser from "phaser";
 
 export class BrickManager {
   protected array: Brick[] = [];

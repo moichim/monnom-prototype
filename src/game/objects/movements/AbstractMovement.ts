@@ -1,4 +1,5 @@
 import { MovementManager } from "./MovementManager";
+import Phaser from "phaser";
 
 export abstract class AbstractMovement {
 

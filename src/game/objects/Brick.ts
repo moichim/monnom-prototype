@@ -1,5 +1,6 @@
 import { CompositionManager } from "./CompositionManager";
 import { MovementManager } from "./movements/MovementManager";
+import Phaser from "phaser";
 
 export enum BrickMovements {
     NATURAL = "Natural",

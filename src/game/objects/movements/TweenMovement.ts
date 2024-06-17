@@ -1,4 +1,5 @@
 import { AbstractMovement } from "./AbstractMovement";
+import Phaser from "phaser";
 
 export class TweenMovement extends AbstractMovement {
 

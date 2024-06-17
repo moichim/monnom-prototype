@@ -1,7 +1,7 @@
 import { EventBus, GameEvents } from "../EventBus";
 import { BricksGame } from "../scenes/Game";
 import { Brick, BrickMovements } from "./Brick";
-
+import Phaser from "phaser";
 import { v4 as uuid } from "uuid";
 
 export type CompositionSnapshotType = ReturnType<CompositionManager["getCurrentSceneSnapshot"]>;

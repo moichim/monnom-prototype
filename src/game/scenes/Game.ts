@@ -3,6 +3,7 @@ import { EventBus } from "../EventBus";
 import { BrickManager } from "../objects/BrickManager";
 import { CompositionManager } from "../objects/CompositionManager";
 import { AssetManager } from "../../assets/assetManager";
+import Phaser from "phaser";
 
 export class BricksGame extends Scene {
   camera!: Phaser.Cameras.Scene2D.Camera;

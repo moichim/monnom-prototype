@@ -1,6 +1,6 @@
 import { useMemo } from "react";
-import { Brick } from "../game/objects/Brick";
-import { AssetManager } from "../assets/assetManager";
+import { Brick } from "../../game/objects/Brick";
+import { AssetManager } from "../../assets/assetManager";
 
 export type SceneStateBrickProps = ReturnType<Brick["getStoreData"]>;
 

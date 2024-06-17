@@ -1,9 +1,9 @@
 import { useEffect, useRef, useState } from "react";
-import { EventBus, GameEvents } from "./game/EventBus";
-import { IRefPhaserGame, PhaserGame } from "./game/PhaserGame";
-import { BrickMovements } from "./game/objects/Brick";
-import { CompositionSnapshotType } from "./game/objects/CompositionManager";
-import { BricksGame } from "./game/scenes/Game";
+import { EventBus, GameEvents } from "../game/EventBus";
+import { IRefPhaserGame, PhaserGame } from "../game/PhaserGame";
+import { BrickMovements } from "../game/objects/Brick";
+import { CompositionSnapshotType } from "../game/objects/CompositionManager";
+import { BricksGame } from "../game/scenes/Game";
 import { SceneState } from "./state/SceneState";
 
 function App() {

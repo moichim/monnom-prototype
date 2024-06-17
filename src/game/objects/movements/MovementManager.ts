@@ -3,6 +3,7 @@ import { AbstractMovement } from "./AbstractMovement";
 import { NaturalMovement } from "./NaturalMovement";
 import { SwapMovement } from "./SwapMovement";
 import { TweenMovement } from "./TweenMovement";
+import Phaser from "phaser";
 
 export class MovementManager {
 
