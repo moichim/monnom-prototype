@@ -108,8 +108,8 @@ export const PhaserGame = forwardRef<IRefPhaserGame, IProps>(
       <div
         className="transition-all duration-300 ease-in-out overflow-hidden"
         style={{
-          // transform: `translateY( ${on ? 0 : "50vh"} )`,
-          // opacity: on ? 1 : 0,
+          transform: `translateY( ${on ? 0 : "20vh"} )`,
+          opacity: on ? 1 : 0,
           position: "relative",
         }}
       >

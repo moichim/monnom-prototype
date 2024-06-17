@@ -26,7 +26,7 @@ export const SceneState: React.FC<SceneStateProps> = ({
             preserveAspectRatio="xMidYMid meet"
         >
 
-            {snapshot.bricks.map( brick => <SceneStateBrick key={brick.name} {...brick}/> )}
+            {snapshot.bricks.map( brick => <SceneStateBrick key={brick.name} {...brick} center={ new Phaser.Math.Vector2( width / 2, height / 2 ) }/> )}
 
         </svg>
 

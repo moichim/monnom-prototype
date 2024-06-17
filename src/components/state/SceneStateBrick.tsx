@@ -2,7 +2,9 @@ import { useMemo } from "react";
 import { Brick } from "../../game/objects/Brick";
 import { AssetManager } from "../../assets/assetManager";
 
-export type SceneStateBrickProps = ReturnType<Brick["getStoreData"]>;
+export type SceneStateBrickProps = ReturnType<Brick["getStoreData"]> & {
+  center: Phaser.Math.Vector2
+};
 
 export const SceneStateBrick: React.FC<SceneStateBrickProps> = (props) => {
   const url = useMemo(
@@ -10,9 +12,13 @@ export const SceneStateBrick: React.FC<SceneStateBrickProps> = (props) => {
     [props.textureKey]
   );
 
+  const x = useMemo( () => { return props.position.relative.x + props.center.x }, [props.position.relative] );
+
+  const y = useMemo( () => { return props.position.relative.y + props.center.y }, [props.position.relative] );
+
   return (
     <g
-        transform={` translate( ${props.position.absolute.x} ${props.position.absolute.y} ) `}
+        transform={` translate( ${x} ${y} ) `}
         // x={props.position.absolute.x}
         // y={props.position.absolute.y}
         style={{

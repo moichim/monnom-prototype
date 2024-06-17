@@ -36,10 +36,25 @@ export class Brick extends Phaser.Physics.Matter.Image {
     this.name = name;
 
     this.on(
+      Phaser.Input.Events.POINTER_OVER,
+      () => {
+        this.scene.game.canvas.style.cursor = "pointer";
+      }
+    );
+
+    this.on(
+      Phaser.Input.Events.POINTER_OUT,
+      () => {
+        this.scene.game.canvas.style.cursor = "default";
+      }
+    );
+
+    this.on(
       Phaser.Input.Events.POINTER_DOWN,
       (context: Brick) => {
 
         this.movement.startDragging();
+        this.scene.game.canvas.style.cursor = "pointer";
     
       },
       this
@@ -52,12 +67,25 @@ export class Brick extends Phaser.Physics.Matter.Image {
       },
       this
     );
+
+    this.setScale(0.2, 0.2);
+
+  }
+
+  placeOnPosition(
+    x: number,
+    y: number,
+    angle: number
+  ): this {
+    this.setPosition( x, y );
+    this.setAngle( angle );
+    return this;
   }
 
   addedToScene(): void {
     super.addedToScene();
 
-    this.setScale(0.2, 0.2);
+    
 
     const rotation = Math.random() * 360;
     this.setRotation(rotation);
@@ -82,12 +110,12 @@ export class Brick extends Phaser.Physics.Matter.Image {
   }
 
   getStoreData(
-    sceneCenter: ReturnType<CompositionManager["getSceneDimension"]>
+    relativeTo: Phaser.Math.Vector2
   ) {
 
     const positionAbsolute = new Phaser.Math.Vector2(this.x, this.y);
 
-    const positionCenter = positionAbsolute.clone().subtract( sceneCenter.center )
+    const positionCenter = positionAbsolute.clone().subtract( relativeTo )
 
     return {
       position: {

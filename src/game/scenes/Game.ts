@@ -20,50 +20,93 @@ export class BricksGame extends Scene {
   preload() {
     AssetManager.registerToScene( this );
     this.compositions.init();
+    this.matter.world.setBounds();
+
   }
 
   create() {
-    this.matter.world.setBounds();
 
+    this.addBrick(100, 20, "block");
+    this.addBrick(200, 20, "kacovsky");
+    this.addBrick(300, 20, "block");
+    this.addBrick(400, 20, "varecka");
+    this.addBrick(500, 20, "block");
+    this.addBrick(600, 20, "manual");
+    this.addBrick(700, 20, "block");
+    this.addBrick(800, 20, "block");
+    this.addBrick(50, 100, "block");
+    this.addBrick(350, 200,"block");
+    this.addBrick(550, 200,"sbornik");
+    this.addBrick(750, 200,"block");
+    this.addBrick(350, 400,"block");
+    this.addBrick(100, 400,"block");
+    this.addBrick(200, 400,"varecka");
+    this.addBrick(300, 400,"block");
+    this.addBrick(400, 400,"block");
+    this.addBrick(500, 400,"block");
+    this.addBrick(600, 400,"block");
+    this.addBrick(700, 400,"manual");
+    this.addBrick(800, 400,"block");
+    this.addBrick(100, 500,"block");
+    this.addBrick(200, 500,"sbornik");
+    this.addBrick(300, 500,"block");
+    this.addBrick(400, 500,"block");
+    this.addBrick(500, 500,"varecka");
+    this.addBrick(600, 500,"block");
+    this.addBrick(700, 500,"block");
+    this.addBrick(800, 500,"block");
+    this.addBrick(100, 800,"manual");
+    this.addBrick(200, 800,"block");
+    this.addBrick(300, 800,"block");
+    this.addBrick(400, 800,"block");
+    this.addBrick(500, 800,"kielbusova");
+    this.addBrick(600, 800,"block");
+    this.addBrick(700, 800,"kielbusova");
+    this.addBrick(800, 800,"block");
+    
+
+    const sum = {
+      width: 0,
+      height: 0,
+      count: 0
+    }
+
+    this.bricks.map.forEach( brick => {
+      sum.width += brick.width * brick.scale;
+      sum.height += brick.height * brick.scale;
+      sum.count ++;
+    } );
+
+    sum.width = sum.width / sum.count;
+    sum.height = sum.height / sum.count;
+
+    console.log( sum );
+
+    let cursorX = sum.width;
+    let cursorY = this.game.canvas.height - sum.height;
+
+
+    this.bricks.map.forEach( brick => {
+      brick.placeOnPosition( cursorX, cursorY, Math.round( Math.random() * 360 ) );
+      if ( cursorX + sum.width >= this.game.canvas.width ) {
+        cursorX = sum.width;
+        cursorY -= sum.height;
+      } else {
+        cursorX += sum.width
+      }
+
+    } );
+
+
+    this.bricks.mount();
+
+
+    const summarizedTextures = Object.values( this.textures.list )
+
+    console.log( summarizedTextures );
     // const canDrag = this.matter.world.nextGroup();
 
-    this.addBrick(100, 20);
-    this.addBrick(200, 20);
-    this.addBrick(300, 20);
-    this.addBrick(400, 20);
-    this.addBrick(500, 20);
-    this.addBrick(600, 20);
-    this.addBrick(700, 20);
-    this.addBrick(800, 20);
-    this.addBrick(50, 100);
-    this.addBrick(350, 200);
-    this.addBrick(550, 200);
-    this.addBrick(750, 200);
-    this.addBrick(350, 400);
-    this.addBrick(100, 400);
-    this.addBrick(200, 400);
-    this.addBrick(300, 400);
-    this.addBrick(400, 400);
-    this.addBrick(500, 400);
-    this.addBrick(600, 400);
-    this.addBrick(700, 400);
-    this.addBrick(800, 400);
-    this.addBrick(100, 500);
-    this.addBrick(200, 500);
-    this.addBrick(300, 500);
-    this.addBrick(400, 500);
-    this.addBrick(500, 500);
-    this.addBrick(600, 500);
-    this.addBrick(700, 500);
-    this.addBrick(800, 500);
-    this.addBrick(100, 800);
-    this.addBrick(200, 800);
-    this.addBrick(300, 800);
-    this.addBrick(400, 800);
-    this.addBrick(500, 800);
-    this.addBrick(600, 800);
-    this.addBrick(700, 800);
-    this.addBrick(800, 800);
+   
 
     // const rebrick = this.matter.add.gameObject( brick );
 
@@ -79,8 +122,20 @@ export class BricksGame extends Scene {
   }
 
 
-  addBrick( x: number, y: number ) {
-    this.bricks.add( `brick-${x}-${y}`,x,y );
+  protected gridX: number = 0;
+  protected gridY: number = 0;
+
+  protected yStep!: number;
+
+  placeBrick( textureId: string, name: string ) {
+
+    // this.bricks.add(  );
+
+  }
+
+
+  addBrick( x: number, y: number, textureId: string ) {
+    this.bricks.add( `brick-${x}-${y}`,x,y, textureId );
   }
 
   fall() {

@@ -12,9 +12,11 @@ export class BrickManager {
   /** Add a new brick if not exists yet */
   public add(name: string, x: number, y: number, textureKey: string = "block"): Brick | undefined {
     if (!this.map.has(name)) {
-      const brick = this.scene.add.existing(
+      const brick = // this.scene.add.existing(
         new Brick(name, this.scene.matter.world, x, y, textureKey)
-      );
+      // );
+
+      // brick.setActive( false );
 
       this.array.push(brick);
       this.map.set(name, brick);
@@ -24,6 +26,10 @@ export class BrickManager {
     console.error(`Brick '${name}' already exists.`);
 
     return undefined;
+  }
+
+  public mount() {
+    this.array.forEach( brick => this.scene.add.existing( brick ) );
   }
 
 

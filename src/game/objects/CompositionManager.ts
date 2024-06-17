@@ -48,9 +48,20 @@ export class CompositionManager {
     protected getCurrentSceneSnapshot() {
         const bricks = this.bricks.currentlyInComposition;
 
+
+
+        const center = bricks.reduce( (
+            state,
+            current
+        ) => {
+
+            return state.add( new Phaser.Math.Vector2( current.x, current.y ) )
+
+        }, new Phaser.Math.Vector2( 0, 0 ) ).divide( new Phaser.Math.Vector2( bricks.length, bricks.length ) );
+
         const stored = bricks.map( brick => {
 
-            return brick.getStoreData( this.dimensions );
+            return brick.getStoreData( center );
 
         } );
 
@@ -134,9 +145,9 @@ export class CompositionManager {
             
             if ( brick ) {
 
-                // const newPosition = this.dimensions.center.clone().add( brickState.position.absolute );
+                const newPosition = this.dimensions.center.clone().add( brickState.position.relative ).add( new Phaser.Math.Vector2( 0, -1 * this.dimensions.height / 6 ) );
 
-                const newPosition = brickState.position.absolute;
+                // const newPosition = brickState.position.absolute;
 
                 if (mode === BrickMovements.NATURAL ) {
                     brick.movement.natural( newPosition.x, newPosition.y, brickState.angle );
