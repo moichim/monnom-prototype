@@ -50,12 +50,7 @@ export class CompositionManager {
 
         const stored = bricks.map( brick => {
 
-            return {
-                position: this.getPositionRelativeToCenter( brick ),
-                rotation: brick.rotation,
-                angle: brick.angle,
-                name: brick.name
-            }
+            return brick.getStoreData( this.dimensions );
 
         } );
 
@@ -63,14 +58,14 @@ export class CompositionManager {
 
             const st = {...state};
 
-            if ( current.position.x < state.minX)
-                st.minX = current.position.x;
-            if ( current.position.x > state.maxX )
-                st.maxX = current.position.x;
-            if ( current.position.y < state.minY ) 
-                st.minY = current.position.y;
-            if ( current.position.y > state.maxY )
-                st.maxY = current.position.y;
+            if ( current.position.relative.x < state.minX)
+                st.minX = current.position.relative.x;
+            if ( current.position.relative.x > state.maxX )
+                st.maxX = current.position.relative.x;
+            if ( current.position.relative.y < state.minY ) 
+                st.minY = current.position.relative.y;
+            if ( current.position.relative.y > state.maxY )
+                st.maxY = current.position.relative.y;
 
             return st;
 
@@ -83,8 +78,14 @@ export class CompositionManager {
 
         return {
             bricks: stored,
-            bounds,
-            dimension,
+            dimension: {
+                scene: {
+                    width: this.scene.game.canvas.width,
+                    height: this.scene.game.canvas.height
+                },
+                composition: dimension,
+                bounds,
+            },
             id: uuid(),
             name: undefined as unknown as string
         }
@@ -137,7 +138,9 @@ export class CompositionManager {
             
             if ( brick ) {
 
-                const newPosition = this.dimensions.center.clone().add( brickState.position );
+                // const newPosition = this.dimensions.center.clone().add( brickState.position.absolute );
+
+                const newPosition = brickState.position.absolute;
 
                 if (mode === BrickMovements.NATURAL ) {
                     brick.movement.natural( newPosition.x, newPosition.y, brickState.angle );

@@ -3,7 +3,7 @@ import { BricksGame as MainGame } from "./scenes/Game";
 
 //  Find out more information about the Game Config at:
 //  https://newdocs.phaser.io/docs/3.70.0/Phaser.Types.Core.GameConfig
-const config: Phaser.Types.Core.GameConfig = {
+const baseConfig: Phaser.Types.Core.GameConfig = {
   type: AUTO,
   width: 1024,
   height: 900,
@@ -19,6 +19,15 @@ const config: Phaser.Types.Core.GameConfig = {
 };
 
 const StartGame = (parent: string) => {
+
+  const config = {
+    ...baseConfig,
+    width: window.innerWidth,
+    height: window.innerHeight
+
+  };
+
+
   return new Game({ ...config, parent });
 };
 

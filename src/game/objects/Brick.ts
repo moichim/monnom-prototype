@@ -1,3 +1,4 @@
+import { CompositionManager } from "./CompositionManager";
 import { MovementManager } from "./movements/MovementManager";
 
 export enum BrickMovements {
@@ -79,8 +80,24 @@ export class Brick extends Phaser.Physics.Matter.Image {
     this.movement.update();
   }
 
-  getStoreData() {
-    return this.toJSON()
+  getStoreData(
+    sceneCenter: ReturnType<CompositionManager["getSceneDimension"]>
+  ) {
+
+    const positionAbsolute = new Phaser.Math.Vector2(this.x, this.y);
+
+    const positionCenter = positionAbsolute.clone().subtract( sceneCenter.center )
+
+    return {
+      position: {
+        absolute: positionAbsolute,
+        relative: positionCenter
+      },
+      textureKey: this.texture.key,
+      name: this.name,
+      angle: this.angle,
+      scale: this.scale
+    }
   }
 
 

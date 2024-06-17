@@ -2,6 +2,7 @@ import { Scene } from "phaser";
 import { EventBus } from "../EventBus";
 import { BrickManager } from "../objects/BrickManager";
 import { CompositionManager } from "../objects/CompositionManager";
+import { AssetManager } from "../../assets/assetManager";
 
 export class BricksGame extends Scene {
   camera!: Phaser.Cameras.Scene2D.Camera;
@@ -16,8 +17,7 @@ export class BricksGame extends Scene {
   }
 
   preload() {
-    this.load.image("block", "assets/sbornik.png");
-    this.load.image("mushroom", "assets/sbornik.png");
+    AssetManager.registerToScene( this );
     this.compositions.init();
   }
 

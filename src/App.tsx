@@ -4,6 +4,7 @@ import { IRefPhaserGame, PhaserGame } from "./game/PhaserGame";
 import { BrickMovements } from "./game/objects/Brick";
 import { CompositionSnapshotType } from "./game/objects/CompositionManager";
 import { BricksGame } from "./game/scenes/Game";
+import { SceneState } from "./state/SceneState";
 
 function App() {
   const [movement, setMovement] = useState<BrickMovements>(
@@ -108,9 +109,11 @@ function App() {
             </div>
 
             {compositions.map((composition) => (
-              <button key={composition.id} onClick={() => restore(composition)}>
-                {composition.id}
-              </button>
+              <SceneState
+                key={composition.id}
+                onClick={() => restore(composition)}
+                snapshot={composition}
+              />
             ))}
           </div>
         </div>
